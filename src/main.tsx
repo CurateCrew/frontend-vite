@@ -2,13 +2,38 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { store } from './store/index.js';
+import { 
+  // persistor,
+  store 
+  } from './store/index.js';
 import { Provider } from 'react-redux';
+import { AuthKitProvider } from "@farcaster/auth-kit";
+import { providers } from "ethers";
+// import { PersistGate } from 'redux-persist/integration/react'
+import { BrowserRouter } from 'react-router-dom'
+
+
+const config = {
+  // For a production app, replace this with an Optimism Mainnet
+  // RPC URL from a provider like Alchemy or Infura.
+  relay: "https://relay.farcaster.xyz",
+  rpcUrl: "https://mainnet.optimism.io",
+  domain: "curatecast.vercel.com",
+  siweUri: "https://curatecast.vercel.com",
+  provider: new providers.JsonRpcProvider(undefined, 10),
+  redirectUrl:'/home'
+};
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <AuthKitProvider config={config}>
+      {/* <PersistGate loading={null} persistor={persistor}> */}
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      {/* </PersistGate> */}
+      </AuthKitProvider>
     </Provider>
   </React.StrictMode>,
 )
