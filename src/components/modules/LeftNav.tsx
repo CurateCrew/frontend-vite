@@ -13,7 +13,8 @@ import Logo from '@/components/modules/Logo'
 import navigationConfig from '@/configs/navigation.config'
 import VerticalMenuContent from '@/components/modules/VerticalMenuContent/Left'
 // import useResponsive from '@/utils/hooks/useResponsive'
-import { useAppSelector } from '@/store/hook'
+import { useAppDispatch, useAppSelector } from '@/store/hook'
+import { signOutSuccess } from '@/store'
 
 const sideNavStyle = {
     width: SIDE_NAV_WIDTH,
@@ -69,6 +70,14 @@ const LeftNav = () => {
         />
     )
 
+    
+    const dispatch = useAppDispatch()
+
+    const signOut = () => {
+        dispatch(signOutSuccess())
+
+    }
+
     return (
         <>
             {true && (
@@ -93,6 +102,9 @@ const LeftNav = () => {
                             }
                         />
                     </div>
+                    <button onClick={() => {
+                        signOut()
+                    }}>signout</button>
                     {sideNavCollapse ? (
                         menuContent
                     ) : (

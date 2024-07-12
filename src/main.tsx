@@ -2,15 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { 
-  // persistor,
-  store 
-  } from './store/index.js';
+
 import { Provider } from 'react-redux';
 import { AuthKitProvider } from "@farcaster/auth-kit";
 import { providers } from "ethers";
-// import { PersistGate } from 'redux-persist/integration/react'
+import { PersistGate } from 'redux-persist/integration/react'
 import { BrowserRouter } from 'react-router-dom'
+import store, { persistor } from './store';
 
 
 const config = {
@@ -28,11 +26,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthKitProvider config={config}>
-      {/* <PersistGate loading={null} persistor={persistor}> */}
+      <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      {/* </PersistGate> */}
+      </PersistGate>
       </AuthKitProvider>
     </Provider>
   </React.StrictMode>,

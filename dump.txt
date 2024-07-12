@@ -1,0 +1,4 @@
+https://farcaster-curate.onrender.com/user/get-channel/566046 //getUserChannel
+https://farcaster-curate.onrender.com/user/get-preference/566046  // getUserPreferenceAndInterest
+https://farcaster-curate.onrender.com/user/get-channel/566046  // getUserChannel
+https://farcaster-curate.onrender.com/get-farcaster-account/566046 getUserFarcasterAccount

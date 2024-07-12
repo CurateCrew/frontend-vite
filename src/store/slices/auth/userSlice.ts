@@ -35,8 +35,12 @@ const userSlice = createSlice({
             state.profile.custody = action.payload?.profile.custody
             state.profile.verifications = action.payload?.profile.verifications
         },
+        signOutSuccess(state) {
+            state.isAuthenticated = false
+            state.profile = {}
+        },
     },
 })
 
-export const { setUser } = userSlice.actions
+export const { setUser, signOutSuccess } = userSlice.actions
 export default userSlice.reducer
