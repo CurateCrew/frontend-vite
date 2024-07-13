@@ -13,7 +13,6 @@ const Layout = () => {
     const AppLayout = useMemo(() => {
         if (isAuthenticated) {
             return lazy(() => import('./DashboardLayout'))
-        
         }
 
         return lazy(() => import('./AuthLayout'))

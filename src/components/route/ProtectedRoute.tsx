@@ -6,8 +6,9 @@ import { useAppSelector } from '@/store/hook'
 const { unAuthenticatedEntryPath } = appConfig
 
 const ProtectedRoute = () => {
-    const  isAuthenticated  = useAppSelector((state) => state.auth.user)
-
+    const  isAuthenticated  = useAppSelector((state) => state.auth.user.isAuthenticated)
+    
+    console.log(isAuthenticated)
     const location = useLocation()
 
     if (!isAuthenticated) {

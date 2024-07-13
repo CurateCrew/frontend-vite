@@ -2,7 +2,6 @@ import { Suspense } from 'react'
 import classNames from 'classnames'
 import Container from '@/components/shared/Container'
 
-import Footer from '@/components/modules/Footer'
 import type { CommonProps } from '@/@types/common'
 import type { Meta } from '@/@types/routes'
 import type { ElementType, ComponentPropsWithRef } from 'react'
@@ -26,7 +25,6 @@ const PageContainer = (props: PageContainerProps) => {
         children,
         header,
         extraHeader,
-        footer = true,
     } = props
 
     return (
@@ -67,9 +65,7 @@ const PageContainer = (props: PageContainerProps) => {
                     </Container>
                 </div>
             </main>
-            {footer && (
-                <Footer/>
-            )}
+           
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { SignInButton, useProfile } from "@farcaster/auth-kit";
 import footerImage from "../../../public/images/footer-image.png";
 import curate from "../../../public/images/curate.svg";
 import {  useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@/store/hook";
 import useQuery from "@/utils/hooks/useQuery";
 import { REDIRECT_URL_KEY } from "@/constants/app.constant";
@@ -14,7 +14,7 @@ const SignIn = () => {
 
  const dispatch = useAppDispatch()
   const query = useQuery()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const redirectUrl = query.get(REDIRECT_URL_KEY)
 
 
@@ -28,12 +28,12 @@ const SignIn = () => {
   useEffect(() => {
     const init = async () =>{
       if (isAuthenticated) {
-        dispatch(setUser(profile))
-        navigate(
-          redirectUrl
-          ? redirectUrl
-          : appConfig.authenticatedEntryPath
-        )
+        // dispatch(setUser(profile))
+        // navigate(
+        //   redirectUrl
+        //   ? redirectUrl
+        //   : appConfig.authenticatedEntryPath
+        // )
       }
   
       console.log(isAuthenticated, redirectUrl
