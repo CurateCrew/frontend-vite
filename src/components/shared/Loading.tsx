@@ -1,5 +1,4 @@
 import type { CommonProps } from '@/@types/common'
-import classNames from 'classnames'
 import Spinner from '../ui/Spinner'
 
 
@@ -13,11 +12,11 @@ export default function Loading(props: BaseLoadingProps) {
         loading,
         spinnerClass,
         children,
-        className,
     } = props
 
     return (
-        <div className={classNames(loading ? 'relative' : '', className)}>
+        <div className={`fixed inset-0 bg-gray-100 bg-opacity-75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+      `} >
 
         {children}
         {loading && (
@@ -25,7 +24,7 @@ export default function Loading(props: BaseLoadingProps) {
         )}
         {loading && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
-               <Spinner className={spinnerClass} size={40} />
+               <Spinner color="[#005377]" className={spinnerClass} size={40} />
             </div>
         )}
     </div>
