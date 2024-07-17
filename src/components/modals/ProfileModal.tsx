@@ -1,5 +1,6 @@
 import React from 'react';
 import profileImage from "../../../public/images/yele.avif"
+
 interface IModal {
   isOpen: boolean
   onClose: () => void

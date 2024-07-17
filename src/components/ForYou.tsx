@@ -22,30 +22,30 @@ const handleToggle = () => {
   }
 }
   return (
-    <div className='border-t border-b p-8 text-textLight'
+    <div className='border-t border-b lg:p-8 py-2 px-0 text-textLight'
     onClick={handleToggle}
     >
       <RemoveCast isOpen={open} onClose={() =>setOpenModal(false)} />
       <ProfileModal isOpen={openModal} onClose={() => setProfileModal(false)}/>
       <div className="flex justify-between">
-        <div className="flex">
-          <img className="rounded-full" 
+        <div className="flex justify-between">
+          <img className="rounded-full lg:w-12 w-12" 
             src={profileImage} 
-            width={48} height={48} 
+            // width={48} height={48} 
             onClick={() => setProfileModal(true)} 
           />
-          <div className="flex">
+          <div className="flex lg:text-md text-sm">
             <p className="mt-2 ml-2">Yele Badamosi</p>
             <p className="mt-2 ml-2">@yele</p>
             <p className="mt-2 ml-2">. 15min</p>
           </div>
         </div>
-        <div className="flex">
+        <div className="flex lg:mt-0 mt-2">
           <BsThreeDots className="mx-2" />
           <IoMdClose onClick={() => setOpenModal(true)} />
         </div>
       </div>
-      <p className="ml-12">
+      <p className="lg:ml-12 ml-12 lg:text-md text-sm">
         @wbnns is currently speaking to our OnHack fellows - starting by sharing his onchain story and how he got involved with the @base ecosystem.
       </p>
       <img className="mt-2" src={eventImage} /> 
@@ -61,7 +61,7 @@ const handleToggle = () => {
           <GoShare/>
         </div>
       </div>
-      <div className="flex">
+      <div className="flex lg:text-md text-sm">
         <p>77 replies</p>
         <p>•  6 likes</p>
       </div>

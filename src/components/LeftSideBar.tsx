@@ -5,7 +5,7 @@ import { RiLogoutCircleRLine } from "react-icons/ri";
 
 const LeftSideBar: React.FC = () =>{
   return (
-    <div className='flex flex-col justify-between p-4 w-6/12'>
+    <div className='lg:flex flex-col justify-between p-4 w-6/12 hidden'>
       <div>
         <div className="flex">
           <img className="" src={curateCast} width={36} height={36} />
