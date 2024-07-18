@@ -1,4 +1,4 @@
-import profileImage from "../../public/images/curate.svg"
+import profileImage from "/images/curate.svg"
 interface IChannel {
   profileImage: string,
   channelName: string
