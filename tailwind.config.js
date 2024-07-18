@@ -10,6 +10,11 @@ export default {
       fontFamily: {
         inter : ['Inter', 'sans-serif'],
       },
+      colors: {
+        "cyan": "#005377",
+        "textLight": "#63676B"
+      }
+    
     },
   },
   plugins: [
