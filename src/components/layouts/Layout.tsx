@@ -5,23 +5,29 @@ import { useAppSelector } from '@/store/hook'
 
 
 const Layout = () => {
-
     const { isAuthenticated } = useAppSelector((state) => state.auth.user)
-    console.log(isAuthenticated)
+    const  {isOnboarded}  = useAppSelector((state) => state.auth.onboard)
+    console.log(isAuthenticated, isOnboarded)
 
 
     const AppLayout = useMemo(() => {
         if (isAuthenticated) {
-            return lazy(() => import('./DashboardLayout'))
+
+            if (isOnboarded) {
+                return lazy(() => import('./DashboardLayout'))
+            }
+
+            return lazy(() => import('../../views/Onboarding'))
+
         }
 
         return lazy(() => import('./AuthLayout'))
-    }, [isAuthenticated])
+    }, [isAuthenticated, isOnboarded])
 
     return (
         <Suspense
             fallback={
-                <div className="flex flex-auto flex-col h-[100vh]">
+                <div className="flex flex-auto flex-col min-h-[100vh]">
                     <Loading loading={true} />
                 </div>
             }

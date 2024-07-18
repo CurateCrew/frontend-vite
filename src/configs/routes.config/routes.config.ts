@@ -13,4 +13,10 @@ export const protectedRoutes = [
         component: lazy(() => import('@/views/Home')),
     },
 
+    {
+        key: 'onboarding',
+        path: '/onboarding',
+        component: lazy(() => import('@/views/Onboarding')),
+    },
+    
 ]

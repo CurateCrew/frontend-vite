@@ -4,16 +4,29 @@ import {
 import type { NavigationTree } from '@/@types/navigation'
 
 const navigationConfig: NavigationTree[] = [
+
     {
         key: 'home',
         path: '/home',
-        title: 'For You',
+        title: 'For you',
         translateKey: 'nav.home',
         icon: 'home',
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
         subMenu: [],
     },
+
+    {
+        key: 'onboarding',
+        path: '/onboarding',
+        title: 'Onboarding',
+        translateKey: 'nav.onboarding',
+        icon: 'onboarding',
+        type: NAV_ITEM_TYPE_ITEM,
+        authority: [],
+        subMenu: [],
+    },
+
 
 
 
