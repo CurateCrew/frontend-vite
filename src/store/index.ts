@@ -1,11 +1,10 @@
-import { Reducer, configureStore } from '@reduxjs/toolkit';
-import rootReducer from './rootReducer'
+import store from './storeSetup'
 
-
-export const store = configureStore({
-    reducer: rootReducer() as Reducer,
-    devTools: process.env.NODE_ENV === 'development',
-});
-
+export * from './storeSetup'
+export * from './slices/auth'
+export * from './slices/base'
+export * from './slices/theme/themeSlice'
+export * from './rootReducer'
+export * from './hook'
 
 export default store
