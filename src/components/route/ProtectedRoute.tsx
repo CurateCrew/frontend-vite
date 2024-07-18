@@ -1,13 +1,29 @@
 import appConfig from '@/configs/app.config'
 import { REDIRECT_URL_KEY } from '@/constants/app.constant'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
-import { useAppSelector } from '@/store/hook'
+import { useAppDispatch, useAppSelector } from '@/store/hook'
+import { getUserPreferences } from '@/store'
+import { useEffect } from 'react'
 
 const { unAuthenticatedEntryPath } = appConfig
 
 const ProtectedRoute = () => {
-    const  isAuthenticated  = useAppSelector((state) => state.auth.user.isAuthenticated)
-    
+    const dispatch = useAppDispatch()
+    const  {isOnboarded}  = useAppSelector((state) => state.auth.onboard)
+    const  {isAuthenticated}  = useAppSelector((state) => state.auth.user)
+    const  {fid}  = useAppSelector((state) => state.auth.user.profile)
+
+    useEffect(() => {
+        fetchPreferences()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    const fetchPreferences = () => {
+        if (fid) {
+            dispatch(getUserPreferences(`${fid}`))
+        }
+    }
+
     console.log(isAuthenticated)
     const location = useLocation()
 
@@ -18,6 +34,10 @@ const ProtectedRoute = () => {
                 to={`${unAuthenticatedEntryPath}?${REDIRECT_URL_KEY}=${location.pathname}`}
             />
         )
+    }
+
+    if (!isOnboarded) {
+        return <Navigate to="/onboarding" replace />;
     }
 
     return <Outlet />

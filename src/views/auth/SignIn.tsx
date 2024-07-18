@@ -4,13 +4,14 @@ import footerImage from "../../../public/images/footer-image.png";
 import curate from "../../../public/images/curate.svg";
 import {  useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/store/hook";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
 import useQuery from "@/utils/hooks/useQuery";
 import { REDIRECT_URL_KEY } from "@/constants/app.constant";
-import { setUser } from "@/store/slices/auth";
+import { getUserPreferences, setLoading, setUser } from "@/store/slices/auth";
 import appConfig from "@/configs/app.config";
 import { useSignIn } from '@farcaster/auth-kit';
 import { MdClose } from 'react-icons/md';
+import Loading from "@/components/shared/Loading";
 
 interface SignInModalProps {
   setOpen: (value: boolean) => void;
@@ -69,7 +70,7 @@ export const SignInModal: React.FC<SignInModalProps> = ({ setOpen, url }) => {
 }
 
 const SignIn = () => {
-
+const loading = useAppSelector(state => state.auth.user.loading)
  const dispatch = useAppDispatch()
   const query = useQuery()
   const navigate = useNavigate()
@@ -77,22 +78,30 @@ const SignIn = () => {
 
   const [open, setOpen] = useState(false)
 
+
+  const fetchPreferences = () => {
+    if (data?.fid) {
+        dispatch(getUserPreferences(`${data.fid}`))
+    }
+}
+
   const {
     isError,
-      signIn,
-     url,
-     isSuccess,
-     connect,
-     reconnect,
-     channelToken,
-     data,
-     validSignature
+    signIn,
+    url,
+    isSuccess,
+    connect,
+    reconnect,
+    channelToken,
+    data,
+    validSignature
    } = useSignIn({
     onSuccess: () => {
       if (isSuccess && validSignature && data) {
-        
-        dispatch(setUser({isAuthenticated:true, profile:data}))
+        dispatch(setLoading(true))
 
+        dispatch(setUser({loading:false, isAuthenticated:true, profile:data}))
+        fetchPreferences()
         navigate(
           redirectUrl
           ? redirectUrl
@@ -122,18 +131,18 @@ const SignIn = () => {
 
 
     return (
-      <>
+      <Loading loading={loading}>
         <div className="flex w-full flex-col ">
           <div className="flex flex-col w-full p-6 sm:p-0 sm:w-2/4 md:w-2/5 mx-auto">
             <div className="flex gap-2 pt-36">
               <img src={curate} width={36} height={36} alt="curate logo" />
-              <h3 className="text-xl font-bold mt-1">curatecast</h3>
+              <h3 className="text-xl font-bold mt-1 text-[#24292E]">curatecast</h3>
             </div>
-            <h1 className="mt-8 font-semibold text-2xl">
+            <h1 className="mt-8 font-semibold text-2xl text-[#24292E]">
               Personalise <br /> your Farcaster feed
             </h1>
             <div className="mt-4 lg:text-lg ">
-              <p>
+              <p className="text-[#24292E]">
               No clutter, no noise, just engaging casts for you on your curatecast <b>“For you”</b> tab
               </p>
               
@@ -148,7 +157,12 @@ const SignIn = () => {
                 }
                 className="flex gap-2 w-[150px] mt-8 justify-center items-center rounded-md bg-[#005377] px-3 py-3 text-lg font-semibold text-white shadow-sm hover:bg-[#126e9c] "
               >
-                <img width={20} height={20} src='/public/images/farcaster.png' />
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2.74556 0.608887H13.0651V15.3781H11.5503V8.61286H11.5354C11.368 6.7431 9.80669 5.27787 7.90533 5.27787C6.00396 5.27787 4.44263 6.7431 4.27521 8.61286H4.26035V15.3781H2.74556V0.608887Z" fill="white"/>
+                  <path d="M0 2.70516L0.615385 4.80144H1.13609V13.2818C0.874658 13.2818 0.662722 13.4951 0.662722 13.7583V14.33H0.568047C0.306611 14.33 0.0946746 14.5433 0.0946746 14.8064V15.3781H5.39645V14.8064C5.39645 14.5433 5.18451 14.33 4.92308 14.33H4.8284V13.7583C4.8284 13.4951 4.61647 13.2818 4.35503 13.2818H3.78698V2.70516H0Z" fill="white"/>
+                  <path d="M11.645 13.2818C11.3835 13.2818 11.1716 13.4951 11.1716 13.7583V14.33H11.0769C10.8155 14.33 10.6035 14.5433 10.6035 14.8064V15.3781H15.9053V14.8064C15.9053 14.5433 15.6934 14.33 15.432 14.33H15.3373V13.7583C15.3373 13.4951 15.1253 13.2818 14.8639 13.2818V4.80144H15.3846L16 2.70516H12.213V13.2818H11.645Z" fill="white"/>
+                </svg>
+
                 <span>Sign In</span>
               </button>
 
@@ -159,8 +173,8 @@ const SignIn = () => {
           </div>
         </div>
 
-        {open  && <SignInModal setOpen={setOpen} url={url} />}
-        </>
+        {open  && <SignInModal setOpen={setOpen} url={url ? url : ''} />}
+      </Loading>
     )
 }
 
