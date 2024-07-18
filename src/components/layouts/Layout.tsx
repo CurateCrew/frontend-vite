@@ -14,7 +14,7 @@ const Layout = () => {
         if (isAuthenticated) {
 
             if (isOnboarded) {
-                return lazy(() => import('./DashboardLayout'))
+                return lazy(() => import('../../views/Home'))
             }
 
             return lazy(() => import('../../views/Onboarding'))

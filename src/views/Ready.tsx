@@ -5,17 +5,21 @@ import RightSideBar from '@/components/RightSideBar'
 import { BsThreeDots } from "react-icons/bs";
 import EditPreference from '@/components/modals/EditPreference';
 import { useState } from 'react';
-import profileImage from "/images/yele.avif"
+import profileImage from "../../public/images/yele.avif"
 import { channelList } from '@/components/ChannelList';
 import NavDrawer from '@/components/NavDrawer';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () =>{
+const Ready = () =>{
   const [open, setOpenModal] = useState(false)
   const [openNav, setOpenNav] = useState(false)
-
+    const navigate = useNavigate()
   return (
-    <div className='flex flex-col w-full lg:justify-center lg:items-center min-h-screen' onClick={() => setOpenNav(false)}>
-     
+    <div className='flex flex-col lg:justify-center lg:items-center lg:pt-16 pt-8 min-h-screen mx-4' onClick={() => setOpenNav(false)}>
+      <div className='text-center lg:my-8 my-4 lg:block hidden'>
+       <p>Hurray Fatima!! Your </p> 
+       <p> <strong>“For you”</strong>feed has successfully been curated </p> 
+      </div>
       <div className='grid grid-cols-3 justify-between'>
         <img className='rounded-full lg:hidden md:block' src={profileImage} alt="yele" width={36} onClick={() => setOpenNav(true)} />
         <h1 className='text-xl lg:hidden md:block text-center font-semibold'>Home</h1>
@@ -29,9 +33,9 @@ const Home = () =>{
             </div>
           )}
       </div>
-        <div className="flex justify-between lg:w-11/12 w-full bg-white rounded-xl overflow-hidden">
+        <div className="flex justify-between lg:p-8 md:p-2 lg:w-10/12 w-full shadow-lg bg-white mb-8 rounded-xl h-[500px] overflow-hidden">
             <LeftSideBar/>
-            <div className='border-l border-r pt-6 pb-12'>
+            <div className='border-l border-r'>
                 <div className='lg:flex justify-between p-4 hidden'>
                     <h1 className='lg:text-xl md:text-lg'>Home</h1>
                     <BsThreeDots onClick={() =>setOpenModal(true)}/>
@@ -43,9 +47,10 @@ const Home = () =>{
             </div>
             <RightSideBar/>
         </div>
+        <button className='bg-cyan rounded text-white p-2 mb-4' onClick={() => navigate('/home')}>Proceed to my feed</button>
     </div>
 
   )
 }
 
-export default Home
+export default Ready

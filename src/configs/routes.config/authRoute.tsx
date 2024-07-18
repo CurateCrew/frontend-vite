@@ -4,7 +4,7 @@ import type { Routes } from '@/@types/routes'
 const authRoute: Routes = [
     {
         key: 'signIn',
-        path: `/sign-in`,
+        path: `/`,
         component: lazy(() => import('@/views/auth/SignIn')),
     },
 ]

@@ -51,15 +51,15 @@ export type Account = {
     power_badge: boolean,
     profile: {
       bio: {
-        mentioned_profiles: [],
+        mentioned_profiles?: [],
         text: string
       }
     },
     username: string,
     verifications: [],
     verified_addresses: {
-      eth_addresses: [],
-      sol_addresses: []
+      eth_addresses?: [],
+      sol_addresses?: []
     }
   }
 
@@ -73,7 +73,7 @@ export type ChannelResponse ={
 export type AccountResponse = {
     message: string
     status: number
-    data: [number[]]
+    data: {users: Account[]}
     success: boolean
 } 
 
@@ -81,7 +81,7 @@ export type OnboardState = {
     loading: boolean
     isOnboarded: boolean
     preferences: string[]
-    suggestedAccounts: number[]
+    suggestedAccounts: {users:Account[]}
     suggestedChannels: Channel[]
 }
 
@@ -89,7 +89,7 @@ const initialState: OnboardState = {
     loading: false,
     isOnboarded: false,
     preferences:[],
-    suggestedAccounts:[],
+    suggestedAccounts:{ users: []},
     suggestedChannels:[]
 }
 
@@ -111,38 +111,6 @@ export const getUserPreferences = createAsyncThunk(
     }
 );
 
-type FidArray = number[][];
-
-function combineNestedArrays(nestedArrays: FidArray, targetLength: number = 100): number[] {
-    // Flatten the array to get the combined length
-    const combinedArray: number[] = nestedArrays.flat();
-    const totalLength: number = combinedArray.length;
-
-    // If the combined array length is less than or equal to the target length, return all fids
-    if (totalLength <= targetLength) {
-        return combinedArray;
-    }
-
-    // Calculate how many fids to select from each nested array
-    const result: number[] = [];
-    let remainingFids: number = targetLength; // Number of fids we still need
-    const arraysCount: number = nestedArrays.length; // Number of arrays
-
-    // Iterate over each nested array
-    nestedArrays.forEach((array, index) => {
-        // Calculate the number of fids to select from the current array
-        const remainingArrays: number = arraysCount - index; // Number of remaining arrays
-        const fidsToSelect: number = Math.ceil(remainingFids / remainingArrays);
-
-        // Select fids from the current array and add them to the result
-        result.push(...array.slice(0, fidsToSelect));
-        remainingFids -= fidsToSelect; // Decrease the number of remaining fids needed
-    });
-
-    // Return exactly targetLength number of fids
-    return result.slice(0, targetLength);
-}
-
 
 
 export const fetchSuggestedAccounts = createAsyncThunk(
@@ -150,25 +118,7 @@ export const fetchSuggestedAccounts = createAsyncThunk(
     async (fid: string) => {
         const response = await apiGetSuggestedAccounts<AccountResponse>(fid);
         
-        if (response.data.status === 200) {
-            const combinedArray = combineNestedArrays(response.data.data, 100)
-            console.log(combinedArray)
-
-            return {
-                message: response.data.message,
-                status: response.data.status,
-                data: combinedArray,
-                success: response.data.status
-            };
-
-        } else {
-            return {
-                message: response.data.message,
-                status: response.data.status,
-                data: response.data.data.flat(),
-                success: response.data.status
-            };
-        }
+        return response.data;
     }
 );
 
@@ -198,7 +148,7 @@ const onboardSlice = createSlice({
             .addCase(getUserPreferences.fulfilled, (state, action) => {
                 console.log(action.payload)
                 if (action.payload.data.length > 0 ) {
-                    state.isOnboarded = true;
+                    state.isOnboarded = false;
                 } else {
                     state.isOnboarded = false;
                 }

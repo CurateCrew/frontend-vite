@@ -1,5 +1,5 @@
 import type { CommonProps } from '@/@types/common'
-import Spinner from '../ui/Spinner'
+// import Spinner from '../ui/Spinner'
 
 
 interface BaseLoadingProps extends CommonProps {
@@ -10,7 +10,7 @@ interface BaseLoadingProps extends CommonProps {
 export default function Loading(props: BaseLoadingProps) {
     const {
         loading,
-        spinnerClass,
+        // spinnerClass,
         children,
     } = props
 
@@ -24,8 +24,16 @@ export default function Loading(props: BaseLoadingProps) {
         )}
         {loading && (
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
-               <Spinner color="[#005377]" className={spinnerClass} size={40} />
+               {/* <Spinner color="[#005377]" className={spinnerClass} size={40} /> */}
+                <div className="flex items-end">
+                    <div className="w-8 h-8 m-1 bg-[#002855] rounded-full animate-zigzag delay-1"></div>
+                    <div className="w-8 h-8 m-1 bg-[#00A1AB] rounded-full animate-zigzag delay-2"></div>
+                    <div className="w-8 h-8 m-1 bg-[#D4C497] rounded-full animate-zigzag delay-3"></div>
+                    <div className="w-8 h-8 m-1 bg-[#FFD700] rounded-full animate-zigzag delay-4"></div>
+                    <div className="w-8 h-8 m-1 bg-[#DACA77] rounded-full animate-zigzag delay-5"></div>
+                </div>
             </div>
+            
         )}
     </div>
     )

@@ -5,10 +5,7 @@ import curate from "../../../public/images/curate.svg";
 import {  useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
-import useQuery from "@/utils/hooks/useQuery";
-import { REDIRECT_URL_KEY } from "@/constants/app.constant";
 import { getUserPreferences, setLoading, setUser } from "@/store/slices/auth";
-import appConfig from "@/configs/app.config";
 import { useSignIn } from '@farcaster/auth-kit';
 import { MdClose } from 'react-icons/md';
 import Loading from "@/components/shared/Loading";
@@ -70,20 +67,26 @@ export const SignInModal: React.FC<SignInModalProps> = ({ setOpen, url }) => {
 }
 
 const SignIn = () => {
-const loading = useAppSelector(state => state.auth.user.loading)
- const dispatch = useAppDispatch()
-  const query = useQuery()
+
+  const { isAuthenticated } = useAppSelector((state) => state.auth.user)
+  const  {isOnboarded}  = useAppSelector((state) => state.auth.onboard)
   const navigate = useNavigate()
-  const redirectUrl = query.get(REDIRECT_URL_KEY)
-
+  const loading = useAppSelector(state => state.auth.user.loading)
+  const dispatch = useAppDispatch()
   const [open, setOpen] = useState(false)
-
-
-  const fetchPreferences = () => {
-    if (data?.fid) {
-        dispatch(getUserPreferences(`${data.fid}`))
+  
+  
+  
+    if (isAuthenticated) {
+  
+      if (isOnboarded) {
+          navigate('/home')
+      }
+  
+      navigate('/onboarding')
+  
     }
-}
+
 
   const {
     isError,
@@ -101,12 +104,8 @@ const loading = useAppSelector(state => state.auth.user.loading)
         dispatch(setLoading(true))
 
         dispatch(setUser({loading:false, isAuthenticated:true, profile:data}))
-        fetchPreferences()
-        navigate(
-          redirectUrl
-          ? redirectUrl
-          : appConfig.authenticatedEntryPath
-        )
+        dispatch(getUserPreferences(`${data.fid}`))
+        navigate('/user')
       }
       
     },

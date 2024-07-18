@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { AuthKitProvider } from "@farcaster/auth-kit";
 import { providers } from "ethers";
 import { PersistGate } from 'redux-persist/integration/react'
-import { BrowserRouter } from 'react-router-dom'
 import store, { persistor } from './store';
 
 
@@ -27,9 +26,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <AuthKitProvider config={config}>
       <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
           <App />
-        </BrowserRouter>
       </PersistGate>
       </AuthKitProvider>
     </Provider>

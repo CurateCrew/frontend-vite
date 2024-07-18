@@ -78,7 +78,7 @@ const LeftNav = () => {
 
     const signOut = () => {
         dispatch(signOutSuccess())
-        navigate('/sign-in')
+        navigate('/')
     }
 
     return (

@@ -1,11 +1,20 @@
+import { signOutSuccess, useAppDispatch } from "@/store";
 import curateCast from "../../public/images/curate.svg";
 import { GoHome } from "react-icons/go";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { RiLogoutCircleRLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 const LeftSideBar: React.FC = () =>{
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+
+  const signOut = () => {
+    dispatch(signOutSuccess())
+    navigate('/')
+}
   return (
-    <div className='lg:flex flex-col justify-between p-4 w-6/12 hidden'>
+    <div className='lg:flex flex-col justify-between p-4 p-6 pb-12 w-6/12 hidden'>
       <div>
         <div className="flex">
           <img className="" src={curateCast} width={36} height={36} />
@@ -21,7 +30,7 @@ const LeftSideBar: React.FC = () =>{
           <IoIosHelpCircleOutline size={18}/>
           <p className="ml-2">Help & Support</p>
         </div>
-        <div className="flex mt-8">
+        <div className="flex mt-8 cursor-pointer" onClick={() => signOut()}>
           <RiLogoutCircleRLine size={18} color="red"/>
           <p className="text-red-400 ml-2">Log out</p>
         </div>
