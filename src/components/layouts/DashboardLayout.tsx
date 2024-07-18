@@ -29,7 +29,7 @@ export default function DashboardLayout() {
     
 
     return (
-        <div className="app-layout-classic flex flex-auto flex-col">
+        <div className="app-layout-classic flex flex-auto flex-col text-[#63676B]">
             <div className="flex flex-auto min-w-0">
                 <LeftNav />
                 <div className="flex flex-col flex-auto min-h-screen min-w-0 relative w-full">

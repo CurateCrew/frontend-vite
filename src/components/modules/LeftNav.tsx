@@ -15,6 +15,7 @@ import VerticalMenuContent from '@/components/modules/VerticalMenuContent/Left'
 // import useResponsive from '@/utils/hooks/useResponsive'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { signOutSuccess } from '@/store'
+import { useNavigate } from 'react-router-dom'
 
 const sideNavStyle = {
     width: SIDE_NAV_WIDTH,
@@ -27,6 +28,8 @@ const sideNavCollapseStyle = {
 }
 
 const LeftNav = () => {
+    const navigate = useNavigate()
+
     const themeColor = useAppSelector((state) => state.theme.themeColor)
     const primaryColorLevel = useAppSelector(
         (state) => state.theme.primaryColorLevel
@@ -75,7 +78,7 @@ const LeftNav = () => {
 
     const signOut = () => {
         dispatch(signOutSuccess())
-
+        navigate('/sign-in')
     }
 
     return (
