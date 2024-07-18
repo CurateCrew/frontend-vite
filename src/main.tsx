@@ -15,8 +15,8 @@ const config = {
   // RPC URL from a provider like Alchemy or Infura.
   relay: "https://relay.farcaster.xyz",
   rpcUrl: "https://mainnet.optimism.io",
-  domain: "curatecast.vercel.com",
-  siweUri: "https://curatecast.vercel.com",
+  domain: "curatecast.vercel.app",
+  siweUri: "https://curatecast.vercel.app",
   provider: new providers.JsonRpcProvider(undefined, 10),
   // redirectUrl:'/home'
 };
