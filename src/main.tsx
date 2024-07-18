@@ -18,7 +18,7 @@ const config = {
   domain: "curatecast.vercel.app",
   siweUri: "https://curatecast.vercel.app",
   provider: new providers.JsonRpcProvider(undefined, 10),
-  // redirectUrl:'/home'
+  redirectUrl:'https://curatecast.vercel.app/user'
 };
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
