@@ -117,6 +117,11 @@ export default function Onboarding() {
     setPreferencesSaved(true);
   };
 
+  const followAll = () => {
+    setSelectedChannels(suggestedChannels);
+    setSelectedAccounts(suggestedAccounts.users);
+  }
+
   const followSelected = () => {
     navigate("/ready");
   };
@@ -451,7 +456,10 @@ export default function Onboarding() {
                 <div className="mt-8 flex rounded-3xl w-full flex-col border border-[#EFF0F0] text-sm ">
                   <div className="w-full flex gap-6 py-3 px-4">
                     <div className="flex gap-3 w-full flex-row-reverse text-[#005377]">
-                      <p className="font-semibold">Follow All</p>
+                      <p className="font-semibold" 
+                      onClick={() => {
+                        followAll();
+                      }}>Follow All</p>
                       <p
                         className={`font-semibold ${
                           selectedChannels.length + selectedAccounts.length >= 5
@@ -460,8 +468,7 @@ export default function Onboarding() {
                         }`}
                         onClick={() => {
                           if (
-                            selectedChannels.length + selectedAccounts.length >=
-                            5
+                            selectedChannels.length + selectedAccounts.length >=  5
                           ) {
                             followSelected();
                           }
