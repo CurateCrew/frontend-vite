@@ -2,13 +2,13 @@ import { combineReducers, CombinedState, AnyAction, Reducer } from 'redux'
 import auth, { AuthState } from './slices/auth'
 import theme, { ThemeState } from './slices/theme/themeSlice';
 import base, { BaseState } from './slices/base'
-
+import allfeed, { AllFeedState } from './slices/feed';
 
 export type RootState = CombinedState<{
     auth: CombinedState<AuthState>,
     theme: ThemeState,
     base: CombinedState<BaseState>
-    
+    allfeed: CombinedState<AllFeedState>
 }>
 
 export interface AsyncReducers {
@@ -21,6 +21,7 @@ const staticReducers = {
     auth,
     base,
     theme,
+    allfeed
 }
 
 const rootReducer =
