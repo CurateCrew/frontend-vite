@@ -123,12 +123,6 @@ export const fetchSuggestedAccounts = createAsyncThunk(
 );
 
 
-// export const fetchSuggestedFids = async () => {
-    
-// }
-
-
-
 export const fetchSuggestedChannels = createAsyncThunk(
     'auth/data/fetchSuggestedChannels',
     async (fid: string) => {
