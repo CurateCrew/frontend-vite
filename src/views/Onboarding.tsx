@@ -223,7 +223,7 @@ export default function Onboarding() {
                   </svg>
                 </div>
 
-                <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('images/profile-bg.png')]">
+                <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('../../public/images/profile-bg.png')]">
                   <div className="flex gap-4 w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-white">
                     <div
                       className=" items-center "
@@ -484,7 +484,7 @@ export default function Onboarding() {
                     className="relative w-full"
                     variant="pill"
                   >
-                    <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('images/suggestions-bg.png')] h-96 overflow-y-scroll border-t border-[#EFF0F0] ">
+                    <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('../../public/images/suggestions-bg.png')] h-96 overflow-y-scroll border-t border-[#EFF0F0] ">
                       <TabList
                         style={{ backgroundColor: "rgba(243, 244, 246, 0.85)" }}
                         className="flex rounded-full mb-6 absolute top-18 left-2 right-2 sm:left-6 sm:right-6"
