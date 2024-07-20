@@ -142,7 +142,7 @@ const onboardSlice = createSlice({
             .addCase(getUserPreferences.fulfilled, (state, action) => {
                 console.log(action.payload)
                 if (action.payload.data.length > 0 ) {
-                    state.isOnboarded = false;
+                    state.isOnboarded = true;
                 } else {
                     state.isOnboarded = false;
                 }

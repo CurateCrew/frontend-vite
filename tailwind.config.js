@@ -14,6 +14,9 @@ export default {
         "cyan": "#005377",
         "textLight": "#63676B",
         "fullGreen": "#06A77D"
+      },
+      boxShadow: {
+        'equal-lg': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 -4px 6px -1px rgba(0, 0, 0, 0.1)', // Example value
       }
     
     },

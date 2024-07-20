@@ -3,7 +3,6 @@ import LeftSideBar from "@/components/LeftSideBar";
 import RightSideBar from "@/components/RightSideBar";
 import EditPreference from "@/components/modals/EditPreference";
 import { useState } from "react";
-import profileImage from "/images/yele.avif";
 import { channelList } from "@/components/ChannelList";
 import NavDrawer from "@/components/NavDrawer";
 import { useNavigate } from "react-router-dom";
@@ -57,7 +56,7 @@ const Ready = () => {
             </div>
           ))}
         </div>
-      <div className="grid lg:grid-cols-12 md:grid-cols-1 justify-between lg:p-8 md:p-2 lg:w-full w-full shadow-lg bg-white mb-8 rounded-xl h-[500px] overflow-hidden">
+      <div className="grid lg:grid-cols-12 md:grid-cols-1 justify-between lg:p-8 md:p-2 lg:w-full w-[80%] shadow-equal-lg bg-white mb-8 rounded-xl h-[500px] overflow-hidden">
         <div className="col-span-2">
           <LeftSideBar />
         </div>

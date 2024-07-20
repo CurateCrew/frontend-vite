@@ -6,7 +6,7 @@ export type AppConfig = {
 }
 
 const appConfig: AppConfig = {
-    apiPrefix: 'https://farcaster-curate.onrender.com',
+    apiPrefix: 'https://farcaster-curate-qauh.onrender.com',
     authenticatedEntryPath: '/home',
     unAuthenticatedEntryPath: '/sign-in',
     locale: 'en',

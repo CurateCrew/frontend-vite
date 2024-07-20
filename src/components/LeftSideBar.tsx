@@ -3,7 +3,7 @@ import curateCast from "/images/curatecast.png";
 import { GoHome } from "react-icons/go";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { RiLogoutCircleRLine } from "react-icons/ri";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const LeftSideBar: React.FC = () => {
   const navigate = useNavigate();
@@ -14,10 +14,12 @@ const LeftSideBar: React.FC = () => {
     navigate("/");
   };
   return (
-    <div className="lg:flex flex-col justify-between flex-grow lg:p-6 md:p-4 pb-12 max-w-6/12 hidden h-full">
+    <div className="fixed lg:flex flex-col justify-between flex-grow lg:p-6 md:p-4 pb-12 max-w-6/12 hidden h-full">
       <div>
         <div className="flex">
-          <img className="" src={curateCast} width={148} height={38} />
+          <Link to='/home'>
+            <img className="" src={curateCast} width={148} height={38} />
+          </Link>
         </div>
         <div className="flex bg-gray-100 mt-10 p-2 rounded">
           <GoHome size={24} />
