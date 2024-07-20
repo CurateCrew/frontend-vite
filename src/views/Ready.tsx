@@ -58,9 +58,11 @@ const Ready = () => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between lg:p-8 md:p-2 lg:w-full w-full shadow-lg bg-white mb-8 rounded-xl h-[500px] overflow-hidden">
-        <LeftSideBar />
-        <div className="border-l border-r">
+      <div className="grid grid-cols-12 justify-between lg:p-8 md:p-2 lg:w-full w-full shadow-lg bg-white mb-8 rounded-xl h-[500px] overflow-hidden">
+        <div className="col-span-2">
+          <LeftSideBar />
+        </div>
+        <div className="col-span-6 border-l border-r">
           <div className="lg:flex justify-between p-4 hidden">
             <h1 className="lg:text-xl md:text-lg">Home</h1>
             <MdEditNote onClick={() => setOpenModal(true)} />
@@ -70,7 +72,9 @@ const Ready = () => {
             <Content />
           </div>
         </div>
-        <RightSideBar />
+        <div className="col-span-4">
+          <RightSideBar />
+        </div>
       </div>
       <button
         className="bg-cyan rounded text-white p-2 mb-4"
