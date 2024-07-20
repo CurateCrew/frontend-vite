@@ -10,7 +10,6 @@ import RemoveCast from "./modals/RemoveCast";
 import { useState } from "react";
 import ProfileModal from "./modals/ProfileModal";
 import { useAppSelector } from "@/store";
-import profileImage from "../../public/images/yele.avif"
 import { timeAgo } from "@/utils/formatDate";
 
 const ForYou: React.FC = () => {

@@ -65,7 +65,7 @@ const DashboardLayout = () => {
 
   return (
     <div
-      className="flex flex-col lg:justify-center lg:items-center lg:pt-16 pt-8 min-h-screen mx-4"
+      className="flex flex-col w-full lg:justify-center lg:items-center lg:pt-16 pt-8 min-h-screen mx-4"
       onClick={() => setOpenNav(false)}
     >
       <div className="text-center lg:my-8 my-4 lg:block hidden">
@@ -78,8 +78,8 @@ const DashboardLayout = () => {
       <div className="grid grid-cols-3 justify-between">
         <img
           className="rounded-full lg:hidden md:block"
-          src={profileImage}
-          alt="yele"
+          src={auth.profile.pfpUrl}
+          alt={auth.profile.username}
           width={36}
           onClick={() => setOpenNav(true)}
         />
@@ -88,23 +88,23 @@ const DashboardLayout = () => {
         </h1>
       </div>
       <NavDrawer show={openNav} />
-      <div className="flex justify-start items-left lg:hidden md:block overflow-x-auto scroll-m-0">
-        {channelList.map((item, index) => (
-          <div
-            className="p-2 flex flex-col justify-center items-center"
-            key={index}
-          >
-            <img
-              className="rounded-full"
-              src={item.profileImage}
-              alt="yele"
-              width={60}
-            />
-            <p className="text-lg">{item.channelName}</p>
-          </div>
-        ))}
-      </div>
-      <div className="grid grid-cols-12 justify-between lg:p-8 md:p-2 lg:w-10/12 w-full shadow-lg bg-white mb-8 rounded-xl overflow-hidden">
+      <div className='lg:hidden flex overflow-x-auto p-4 space-x-4 bg-white shadow-md'>
+          {channelList.map((item, index) => (
+            <div
+              className='flex flex-col items-center min-w-[80px] max-w-[80px] w-1/4'
+              key={index}
+            >
+              <img
+                className='rounded-full object-cover w-full h-[60px] max-w-[60px]'
+                src={item.profileImage}
+                alt="Channel"
+                width={60}
+              />
+              <p className='text-sm text-center mt-2 truncate'>{item.channelName}</p>
+            </div>
+          ))}
+        </div>
+      <div className="grid lg:grid-cols-12 grid-cols-1 mx-auto justify-between lg:p-8 md:p-2 lg:w-10/12 w-full shadow-lg bg-white mb-8 rounded-xl overflow-hidden">
         <div className="col-span-2">
          <LeftSideBar />
         </div>
