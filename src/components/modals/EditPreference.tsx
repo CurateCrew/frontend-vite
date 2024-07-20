@@ -29,7 +29,7 @@ const EditPreference: React.FC<IModal> = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div
-          className="absolute inset-0 z-50 flex justify-center items-center p-4 lg:mt-60 overflow-y-auto w-full"
+          className="absolute inset-0 z-50 flex justify-center items-center p-4 lg:mt-16 overflow-y-auto w-full"
           aria-labelledby="modal-title"
           aria-modal="true"
           role="dialog"
@@ -37,10 +37,10 @@ const EditPreference: React.FC<IModal> = ({ isOpen, onClose }) => {
           <div className="relative w-full max-w-md h-full md:h-auto p-4">
             <div className="relative border bg-white rounded-lg shadow-lg">
               <div
-                className="lg:mt-80 mt-0 flex justify-end p-4 hover:cursor-pointer"
+                className="lg:mt-24 mt-0 flex justify-end p-4 hover:cursor-pointer"
                 onClick={onClose}
               >
-                <IoMdClose />
+                <IoMdClose color="black" className="absolute mt-16" />
               </div>
               <Recommendations
                 titleStyle="mt-4 mx-4 text-2xl"

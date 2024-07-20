@@ -5,7 +5,7 @@ import Recommendations from "./Recommendations";
 
 const RightSideBar: React.FC = () =>{
   return (
-    <div className='lg:flex flex-col w-8/12 p-4 pt-6 pb-12 hidden'>
+    <div className='lg:flex flex-col max-w-6/12 md:p-4 lg:pt-6 pb-12 hidden'>
       <div>
         <CiSearch className="absolute mt-3 mx-2"/>
         <input type="text" className="border rounded py-2 px-6 w-full" placeholder="Search"/>

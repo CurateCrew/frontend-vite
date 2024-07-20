@@ -2,12 +2,12 @@
 import Content from '@/components/Content'
 import LeftSideBar from '@/components/LeftSideBar'
 import RightSideBar from '@/components/RightSideBar'
-import { BsThreeDots } from "react-icons/bs";
 import EditPreference from '@/components/modals/EditPreference';
 import { useState } from 'react';
 import profileImage from "/images/yele.avif"
 import { channelList } from '@/components/ChannelList';
 import NavDrawer from '@/components/NavDrawer';
+import { MdEditNote } from "react-icons/md";
 
 const Home = () =>{
   const [open, setOpenModal] = useState(false)
@@ -29,19 +29,23 @@ const Home = () =>{
             </div>
           )}
       </div>
-        <div className="flex justify-between lg:w-11/12 w-full bg-white rounded-xl overflow-hidden">
-            <LeftSideBar/>
-            <div className='border-l border-r pt-6 pb-12'>
+        <div className="grid grid-cols-12 justify-between lg:w-11/12 w-full bg-white rounded-xl overflow-hidden">
+            <div className='col-span-2'>
+              <LeftSideBar/>
+            </div>
+            <div className='lg:col-span-6 md:col-span-full border-l border-r pt-6 pb-12'>
                 <div className='lg:flex justify-between p-4 hidden'>
                     <h1 className='lg:text-xl md:text-lg'>Home</h1>
-                    <BsThreeDots onClick={() =>setOpenModal(true)}/>
+                    <MdEditNote onClick={() =>setOpenModal(true)}/>
                 </div>
                 <EditPreference isOpen={open} onClose={() =>setOpenModal(false)}/>
-                <div className=''>
+                <div>
                     <Content/>
                 </div>
             </div>
-            <RightSideBar/>
+            <div className='col-span-4'>
+              <RightSideBar/>
+            </div>
         </div>
     </div>
 

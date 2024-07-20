@@ -49,16 +49,19 @@ import React from "react";
 import Content from "@/components/Content";
 import LeftSideBar from "@/components/LeftSideBar";
 import RightSideBar from "@/components/RightSideBar";
-import { BsThreeDots } from "react-icons/bs";
 import EditPreference from "@/components/modals/EditPreference";
 import { useState } from "react";
 import profileImage from "/images/yele.avif";
 import { channelList } from "@/components/ChannelList";
 import NavDrawer from "@/components/NavDrawer";
+import { useAppSelector } from "@/store";
+import { MdEditNote } from "react-icons/md";
+
 
 const DashboardLayout = () => {
   const [open, setOpenModal] = useState(false);
   const [openNav, setOpenNav] = useState(false);
+  const auth = useAppSelector((state) => state.auth.user)
 
   return (
     <div
@@ -66,7 +69,7 @@ const DashboardLayout = () => {
       onClick={() => setOpenNav(false)}
     >
       <div className="text-center lg:my-8 my-4 lg:block hidden">
-        <p>Hurray Fatima!! Your </p>
+        <p> { `Hurray ${auth.profile.username}!! Your` }</p>
         <p>
           {" "}
           <strong>“For you”</strong>feed has successfully been curated{" "}
@@ -106,10 +109,10 @@ const DashboardLayout = () => {
         <div className="border-l border-r">
           <div className="lg:flex justify-between p-4 hidden">
             <h1 className="lg:text-xl md:text-lg">Home</h1>
-            <BsThreeDots onClick={() => setOpenModal(true)} />
+            <MdEditNote onClick={() => setOpenModal(true)} />
           </div>
           <EditPreference isOpen={open} onClose={() => setOpenModal(false)} />
-          <div className="">
+          <div>
             <Content />
           </div>
         </div>
