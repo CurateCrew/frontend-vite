@@ -13,7 +13,7 @@ interface IModal {
 }
 
 const EditPreference: React.FC<IModal> = ({ isOpen, onClose }) => {
-  const [selected, setSelected] = useState<boolean>(false);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedList, setSelectedList] = useState<string[]>([]);
 
   const handleSelection = useCallback(() => {
@@ -24,21 +24,35 @@ const EditPreference: React.FC<IModal> = ({ isOpen, onClose }) => {
     handleSelection();
   }, [handleSelection]);
 
-  console.log(selectedList);
+  const toggleSelection = (item: string) => {
+    setSelectedItems((prevSelected) =>
+      prevSelected.includes(item)
+        ? prevSelected.filter((i) => i !== item)
+        : [...prevSelected, item]
+    );
+  };
+
+  const handleClose = () => {
+    setSelectedItems([]); 
+    onClose();
+  };
+
+  console.log(selectedItems);
+
   return (
     <>
       {isOpen && (
         <div
-          className="absolute inset-0 z-50 flex justify-center items-center p-4 lg:mt-16 overflow-y-auto w-full"
+          className={`absolute inset-0 z-50 flex justify-center items-center p-4 ${selectedList.length !==0 ? "lg:mt-2" : "lg:mt-16" }  overflow-y-auto w-full`}
           aria-labelledby="modal-title"
           aria-modal="true"
           role="dialog"
         >
-          <div className="relative w-full max-w-md h-full md:h-auto p-4">
+          <div className="relative w-full mt-8 max-w-md h-full md:h-auto p-4">
             <div className="relative border bg-white rounded-lg shadow-lg">
               <div
                 className="lg:mt-24 mt-0 flex justify-end p-4 hover:cursor-pointer"
-                onClick={onClose}
+                onClick={handleClose}
               >
                 <IoMdClose color="black" className="absolute mt-16" />
               </div>
@@ -55,27 +69,25 @@ const EditPreference: React.FC<IModal> = ({ isOpen, onClose }) => {
               </p>
               <div className="grid lg:grid-cols-3 grid-cols-2 px-4">
                 {selectedList.map((item, index) => (
-                  <div>
-                    {selected && item ? (
-                      <div className="border border-green-500 flex justify-between m-1 rounded-full p-1">
-                        <button
-                          className={`{"text-left p-1  font-semibold text-sm text-green-500`}
-                          onClick={() => setSelected(true)}
-                          key={index}
-                        >
-                          {item}
-                        </button>
-                        <FaCheckCircle className="mt-2" color="green" />
-                      </div>
-                    ) : (
+                  <div key={index}>
+                    <div
+                      className={`border flex justify-between m-1 rounded-full p-1 ${selectedItems.includes(item) ? 'border-green-300' : 'border-gray-300'}`}
+                    >
                       <button
-                        className={`text-left p-1 border rounded-full m-1 text-sm text-textLight`}
-                        onClick={() => setSelected(true)}
-                        key={index}
+                        className={`text-left p-1 font-semibold text-sm ${selectedItems.includes(item) ? 'text-fullGreen' : 'text-textLight'}`}
+                        onClick={() => toggleSelection(item)}
                       >
-                        {item}{" "}
+                        {item}
                       </button>
-                    )}
+                      {selectedItems.includes(item) && 
+                      <div className="p-2">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="16" height="16" rx="8" fill="#06A77D" fill-opacity="0.1"/>
+                        <path d="M12.3333 5L5.91664 11.4166L3 8.49997" stroke="#06A77D" stroke-width="1.31249" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </div>
+                      }
+                    </div>
                   </div>
                 ))}
               </div>
