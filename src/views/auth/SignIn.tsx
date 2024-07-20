@@ -201,7 +201,7 @@ const SignIn = () => {
         </div>
       </div>
 
-      {open && <SignInModal setOpen={setOpen} url={url ? url : ""} />}
+      {open && url && <SignInModal setOpen={setOpen} url={url} />}
     </Loading>
   );
 };

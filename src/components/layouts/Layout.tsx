@@ -25,7 +25,7 @@ const Layout = () => {
         }
 
         return lazy(() => import('./AuthLayout'))
-    }, [isAuthenticated, isOnboarded])
+    }, [isAuthenticated, isOnboarded, dispatch, fid])
 
     return (
         <Suspense

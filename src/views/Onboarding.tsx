@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Loading from "@/components/shared/Loading";
 import Tabs from "@/components/ui/Tabs";
 
+
 export default function Onboarding() {
   const profile = useAppSelector((state) => state.auth.user.profile);
   const { loading, preferences, suggestedAccounts, suggestedChannels } =
@@ -224,6 +225,8 @@ export default function Onboarding() {
                 </div>
 
                 <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('../../public/images/profile-bg.png')]">
+                {/* <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('https://drive.google.com/file/d/1reCHbNWZGBQGcP353Uuim8o7zZqq2ZKu/view')]"> */}
+
                   <div className="flex gap-4 w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-white">
                     <div
                       className=" items-center "
@@ -416,7 +419,7 @@ export default function Onboarding() {
 
                 <div className="w-full rounded-xl  ">
                   <h3 className="text-xl font-bold text-[#24292E] leading-loose">
-                    Top engaging profiles and channels
+                   Top engaging profiles and channels based on your interests
                   </h3>
                   <div className="flex gap-1 text-[#63676B] text-xs">
                     <svg
@@ -446,9 +449,7 @@ export default function Onboarding() {
                       </defs>
                     </svg>
                     <p>
-                      Recommendations are based on your set preferences from the
-                      previous step. You can always edit them in your “for you’
-                      feed
+                    Select/follow handles you want to see casts from
                     </p>
                   </div>
                 </div>
@@ -456,7 +457,7 @@ export default function Onboarding() {
                 <div className="mt-8 flex rounded-3xl w-full flex-col border border-[#EFF0F0] text-sm ">
                   <div className="w-full flex gap-6 py-3 px-4">
                     <div className="flex gap-3 w-full flex-row-reverse text-[#005377]">
-                      <p className="font-semibold" 
+                      <p className="font-semibold cursor-pointer" 
                       onClick={() => {
                         followAll();
                       }}>Follow All</p>
@@ -485,6 +486,7 @@ export default function Onboarding() {
                     variant="pill"
                   >
                     <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('../../public/images/suggestions-bg.png')] h-96 overflow-y-scroll border-t border-[#EFF0F0] ">
+                    {/* <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('https://drive.google.com/file/d/1g-6hd45ySDZtP-jEro3JIqeQzfhGiD9d/view')] h-96 overflow-y-scroll border-t border-[#EFF0F0] "> */}
                       <TabList
                         style={{ backgroundColor: "rgba(243, 244, 246, 0.85)" }}
                         className="flex rounded-full mb-6 absolute top-18 left-2 right-2 sm:left-6 sm:right-6"
@@ -565,9 +567,9 @@ export default function Onboarding() {
                                     <path
                                       d="M13.6663 5.5L7.24967 11.9167L4.33301 9"
                                       stroke="white"
-                                      stroke-width="1.5"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="1.5"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                     />
                                   </svg>
                                 </div>
@@ -636,9 +638,9 @@ export default function Onboarding() {
                                     <path
                                       d="M13.6663 5.5L7.24967 11.9167L4.33301 9"
                                       stroke="white"
-                                      stroke-width="1.5"
-                                      stroke-linecap="round"
-                                      stroke-linejoin="round"
+                                      strokeWidth="1.5"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
                                     />
                                   </svg>
                                 </div>
@@ -685,9 +687,9 @@ export default function Onboarding() {
                       <path
                         d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"
                         stroke="#24292E"
-                        stroke-width="1.3"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     <span>clear</span>
@@ -710,9 +712,9 @@ export default function Onboarding() {
                       <path
                         d="M10.5 3.5L3.5 10.5M3.5 3.5L10.5 10.5"
                         stroke="#24292E"
-                        stroke-width="1.3"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
+                        strokeWidth="1.3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
                       />
                     </svg>
                     <span>clear selection</span>

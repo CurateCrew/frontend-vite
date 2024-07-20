@@ -5,6 +5,7 @@ import Onboarding from "./views/Onboarding";
 import Layout from "./components/layouts/Layout";
 import Ready from "./views/Ready";
 import Home from "./views/Home";
+// import Signer from "./views/Signer";
 
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
         <Routes>
             <Route path="/home" element={  <Home/>}/>
         </Routes>
+
+        {/* <Routes>
+            <Route path="/signer" element={  <Signer/>}/>
+        </Routes> */}
     </BrowserRouter>
 
     

@@ -7,14 +7,22 @@ import { CiBookmark } from "react-icons/ci";
 import { GoShare } from "react-icons/go";
 import { CiGrid41 } from "react-icons/ci";
 import RemoveCast from "./modals/RemoveCast";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileModal from "./modals/ProfileModal";
-import { useAppSelector } from "@/store";
+import { fetchUserFeed, useAppDispatch, useAppSelector } from "@/store";
 
 const ForYou: React.FC = () => {
   const [open, setOpenModal] = useState(false);
   const [openModal, setProfileModal] = useState(false);
   const feeds = useAppSelector((state) => state.allfeed.apifeed.data.casts)
+  const dispatch = useAppDispatch()
+  const { fid } = useAppSelector((state) => state.auth.user.profile)
+
+
+  useEffect(() => {
+    dispatch(fetchUserFeed(`${fid}`))
+
+  }, [feeds, dispatch, fid]);
 
   const handleToggle = () => {
     if (openModal) {
