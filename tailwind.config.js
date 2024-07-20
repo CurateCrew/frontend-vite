@@ -12,7 +12,8 @@ export default {
       },
       colors: {
         "cyan": "#005377",
-        "textLight": "#63676B"
+        "textLight": "#63676B",
+        "fullGreen": "#06A77D"
       }
     
     },

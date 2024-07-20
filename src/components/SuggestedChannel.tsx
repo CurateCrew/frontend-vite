@@ -13,7 +13,7 @@ const SuggestedChannel: React.FC<IChannel> = ({
   return (
     <div className="flex justify-between align-middle border rounded p-2 mt-4">
       <div className="flex">
-        <img src={yelePix} alt="yele" className="rounded-full" width={48} />
+        <img src={yelePix} alt="yele" className="w-12 h-12 rounded-full object-cover" />
         <div className="mx-2">
           <p className="font-semibold">{channelHandle}</p>
           <p>{channelName}</p>
