@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { SLICE_BASE_NAME } from './constants'
-import { apiGetUserPreferences } from '@/services/OnboardingService';
+import { apiCreateAndStoreSigner, apiGetUserPreferences } from '@/services/OnboardingService';
 import { apiGetSuggestedAccounts, apiGetSuggestedChannels, apiSavePreferences } from '@/services/OnboardingService';
 
 
@@ -77,6 +77,17 @@ export type AccountResponse = {
     success: boolean
 } 
 
+export type FollowPostRequest = {
+    fids: number[]
+}
+
+export type FollowPostResponse = {
+    message?: string,
+    error?: string,
+    status: number,
+    success: boolean
+}
+
 export type OnboardState = {
     loading: boolean
     isOnboarded: boolean
@@ -131,6 +142,15 @@ export const fetchSuggestedChannels = createAsyncThunk(
     }
 );
 
+
+export const createAndStoreSigner = createAsyncThunk(
+    'auth/data/createAndStoreSigner',
+    async (data: FollowPostRequest) => {
+        const response = await apiCreateAndStoreSigner(data)
+        return response.data
+    }
+)
+
 const onboardSlice = createSlice({
     name: `${SLICE_BASE_NAME}/onboard`,
     initialState,
@@ -142,7 +162,7 @@ const onboardSlice = createSlice({
             .addCase(getUserPreferences.fulfilled, (state, action) => {
                 console.log(action.payload)
                 if (action.payload.data.length > 0 ) {
-                    state.isOnboarded = true;
+                    state.isOnboarded = false;
                 } else {
                     state.isOnboarded = false;
                 }
@@ -191,6 +211,18 @@ const onboardSlice = createSlice({
             .addCase(fetchSuggestedChannels.rejected, (state, action) => {
                 state.loading = false
                 console.error('prefrences failed:', action.payload);
+            })
+            .addCase(createAndStoreSigner.fulfilled, (state, action) => {
+                console.log(action.payload)
+                // state.suggestedChannels = action.payload.data
+                state.loading = false
+            })
+            .addCase(createAndStoreSigner.pending, (state) => {
+                state.loading = true
+            })
+            .addCase(createAndStoreSigner.rejected, (state, action) => {
+                state.loading = false
+                console.error('create and stor signer failed:', action.payload);
             })
     },
 })

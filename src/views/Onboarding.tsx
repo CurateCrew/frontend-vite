@@ -4,6 +4,7 @@ import {
   Account,
   Channel,
   Interest,
+  createAndStoreSigner,
   fetchSuggestedAccounts,
   fetchSuggestedChannels,
   saveUserPreferences,
@@ -29,6 +30,7 @@ export default function Onboarding() {
   const [prefrences, setPrefrences] = useState(false);
   const [suggestions, setSuggestions] = useState(false);
   const [preferencesSaved, setPreferencesSaved] = useState(false);
+
 
   const { TabNav, TabList, TabContent } = Tabs;
 
@@ -123,9 +125,32 @@ export default function Onboarding() {
     setSelectedAccounts(suggestedAccounts.users);
   }
 
-  const followSelected = () => {
-    navigate("/ready");
-  };
+  // const followSelected = () => {
+  //   navigate("/ready");
+  // };
+
+  async function followSelected() {
+    // setLoadingFollow(true);
+    // await createAndStoreSigner();
+    // setLoadingFollow(false);
+
+    dispatch(createAndStoreSigner({fids:[566046]}))
+  }
+
+  // async function createAndStoreSigner() {
+    // try {
+    //   const response = await axios.post("https://farcaster-curate-qauh.onrender.com/user/follow-farcaster-user");
+    //   if (response.status === 200) {
+    //     localStorage.setItem(
+    //       LOCAL_STORAGE_KEYS.FARCASTER_USER,
+    //       JSON.stringify(response.data)
+    //     );
+    //     setFarcasterUser(response.data);
+    //   }
+    // } catch (error) {
+    //   console.error("API Call failed", error);
+    // }
+  // }
 
   useEffect(() => {
     const fetchSuggestions = () => {
@@ -161,7 +186,7 @@ export default function Onboarding() {
 
   return (
     <>
-      <Loading loading={loading}>
+      <Loading loading={false}>
         <div className="flex w-full flex-col  text-[#63676B]">
           <div className="flex gap-2 px-6 py-4 sm:px-12 sm:py-6 md:px-16 md:py-8">
             <img src={curate} width={36} height={36} alt="curate logo" />
@@ -224,7 +249,8 @@ export default function Onboarding() {
                   </svg>
                 </div>
 
-                <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('../../public/images/profile-bg.png')]">
+                <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover" style={{ backgroundImage: "url('/images/profile-bg.png')" }}>
+                {/* <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('../../public/images/profile-bg.png')]"> */}
                 {/* <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('https://drive.google.com/file/d/1reCHbNWZGBQGcP353Uuim8o7zZqq2ZKu/view')]"> */}
 
                   <div className="flex gap-4 w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-white">
@@ -485,7 +511,8 @@ export default function Onboarding() {
                     className="relative w-full"
                     variant="pill"
                   >
-                    <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('../../public/images/suggestions-bg.png')] h-96 overflow-y-scroll border-t border-[#EFF0F0] ">
+                    <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover  h-96 overflow-y-scroll border-t border-[#EFF0F0] " style={{ backgroundImage: "url('/images/suggestions-bg.png')" }}>
+                    {/* <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('../../public/images/suggestions-bg.png')] h-96 overflow-y-scroll border-t border-[#EFF0F0] "> */}
                     {/* <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('https://drive.google.com/file/d/1g-6hd45ySDZtP-jEro3JIqeQzfhGiD9d/view')] h-96 overflow-y-scroll border-t border-[#EFF0F0] "> */}
                       <TabList
                         style={{ backgroundColor: "rgba(243, 244, 246, 0.85)" }}
