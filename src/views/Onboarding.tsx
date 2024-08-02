@@ -3,19 +3,20 @@ import curate from "/images/curate.svg";
 import {
   Account,
   Channel,
+  FollowPostResponse,
   Interest,
-  createAndStoreSigner,
   fetchSuggestedAccounts,
   fetchSuggestedChannels,
   saveUserPreferences,
-  signOutSuccess,
   useAppDispatch,
   useAppSelector,
 } from "@/store";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "@/components/shared/Loading";
 import Tabs from "@/components/ui/Tabs";
+import { useNeynarContext } from "@neynar/react";
+import { apiFollowSelected } from "@/services/OnboardingService";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Onboarding() {
@@ -25,11 +26,11 @@ export default function Onboarding() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const [userData, setUserData] = useState(true);
   const [prefrences, setPrefrences] = useState(false);
   const [suggestions, setSuggestions] = useState(false);
   const [preferencesSaved, setPreferencesSaved] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const { TabNav, TabList, TabContent } = Tabs;
@@ -125,32 +126,31 @@ export default function Onboarding() {
     setSelectedAccounts(suggestedAccounts.users);
   }
 
-  // const followSelected = () => {
-  //   navigate("/ready");
-  // };
-
-  async function followSelected() {
-    // setLoadingFollow(true);
-    // await createAndStoreSigner();
-    // setLoadingFollow(false);
-
-    dispatch(createAndStoreSigner({fids:[566046]}))
+  function extractFids(accounts: Account[]): number[] {
+    return accounts.map(account => account.fid);
   }
 
-  // async function createAndStoreSigner() {
-    // try {
-    //   const response = await axios.post("https://farcaster-curate-qauh.onrender.com/user/follow-farcaster-user");
-    //   if (response.status === 200) {
-    //     localStorage.setItem(
-    //       LOCAL_STORAGE_KEYS.FARCASTER_USER,
-    //       JSON.stringify(response.data)
-    //     );
-    //     setFarcasterUser(response.data);
-    //   }
-    // } catch (error) {
-    //   console.error("API Call failed", error);
-    // }
-  // }
+  async function followSelected() {
+    try {
+      if (profile.signer_uuid) {
+        setIsLoading(true);
+        const request = await apiFollowSelected<FollowPostResponse>({signer_uuid: profile.signer_uuid, fids:extractFids(selectedAccounts)})
+        if(request.data.success) {
+          navigate("/ready");
+        }else{
+          setIsLoading(false);
+          console.log(request)
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+
+    }
+
+  }
+
+
 
   useEffect(() => {
     const fetchSuggestions = () => {
@@ -179,14 +179,12 @@ export default function Onboarding() {
     }
   }, [loading, suggestedAccounts, suggestedChannels, preferencesSaved]);
 
-  const signOut = () => {
-    dispatch(signOutSuccess());
-    navigate("/");
-  };
+  const { logoutUser } = useNeynarContext();
+
 
   return (
     <>
-      <Loading loading={false}>
+      <Loading loading={loading || isLoading}>
         <div className="flex w-full flex-col  text-[#63676B]">
           <div className="flex gap-2 px-6 py-4 sm:px-12 sm:py-6 md:px-16 md:py-8">
             <img src={curate} width={36} height={36} alt="curate logo" />
@@ -200,7 +198,7 @@ export default function Onboarding() {
               <div className="pb-6 font-bold">
                 <MdArrowBack
                   onClick={() => {
-                    signOut();
+                    logoutUser();
                   }}
                   className="text-2xl cursor-pointer"
                 />
@@ -250,8 +248,6 @@ export default function Onboarding() {
                 </div>
 
                 <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover" style={{ backgroundImage: "url('/images/profile-bg.png')" }}>
-                {/* <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('../../public/images/profile-bg.png')]"> */}
-                {/* <div className="w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-cover bg-[url('https://drive.google.com/file/d/1reCHbNWZGBQGcP353Uuim8o7zZqq2ZKu/view')]"> */}
 
                   <div className="flex gap-4 w-full rounded-2xl p-2 sm:p-6 border border-[#EFF0F0] bg-white">
                     <div
@@ -266,7 +262,7 @@ export default function Onboarding() {
                       <img
                         width={80}
                         height={80}
-                        src={`${profile.pfpUrl}`}
+                        src={`${profile.pfp_url}`}
                         alt=""
                         className="block w-full h-full object-cover rounded-full"
                       />
@@ -274,11 +270,15 @@ export default function Onboarding() {
 
                     <div className="flex flex-col">
                       <h3 className="text-xl font-bold text-[#24292E]">
-                        {profile.displayName}
+                        {profile.display_name}
                       </h3>
                       <p>@{profile.username}</p>
                       <p className="pt-2">
-                        {sliceString(profile.bio ? profile.bio : "")}
+                        {sliceString(profile.profile?.bio.text ? profile.profile.bio.text : "")}
+                      </p>
+                      <p className="pt-2 flex gap-4">
+                      <span><b>{profile.follower_count}</b> Followers</span>
+                      <span><b>{profile.following_count}</b> Followers</span>
                       </p>
                     </div>
                   </div>
@@ -475,7 +475,7 @@ export default function Onboarding() {
                       </defs>
                     </svg>
                     <p>
-                    Select/follow handles you want to see casts from
+                    Select atleast 5 Account / Channels  you want follow to see their casts
                     </p>
                   </div>
                 </div>
@@ -487,6 +487,7 @@ export default function Onboarding() {
                       onClick={() => {
                         followAll();
                       }}>Follow All</p>
+                     
                       <p
                         className={`font-semibold ${
                           selectedChannels.length + selectedAccounts.length >= 5
@@ -512,8 +513,6 @@ export default function Onboarding() {
                     variant="pill"
                   >
                     <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover  h-96 overflow-y-scroll border-t border-[#EFF0F0] " style={{ backgroundImage: "url('/images/suggestions-bg.png')" }}>
-                    {/* <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('../../public/images/suggestions-bg.png')] h-96 overflow-y-scroll border-t border-[#EFF0F0] "> */}
-                    {/* <div className="w-full rounded-2xl p-2 sm:p-6  bg-cover bg-[url('https://drive.google.com/file/d/1g-6hd45ySDZtP-jEro3JIqeQzfhGiD9d/view')] h-96 overflow-y-scroll border-t border-[#EFF0F0] "> */}
                       <TabList
                         style={{ backgroundColor: "rgba(243, 244, 246, 0.85)" }}
                         className="flex rounded-full mb-6 absolute top-18 left-2 right-2 sm:left-6 sm:right-6"

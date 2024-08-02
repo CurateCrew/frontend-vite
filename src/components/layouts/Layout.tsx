@@ -1,12 +1,13 @@
 import { useMemo, lazy, Suspense } from 'react'
 import Loading from '@/components/shared/Loading'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
-import { fetchUserFeed } from '@/store'
+import { fetchUserFeed, setUser } from '@/store'
+import { useNeynarContext } from "@neynar/react";
 
 
 
 const Layout = () => {
-    const { isAuthenticated } = useAppSelector((state) => state.auth.user)
+    const { user, isAuthenticated } = useNeynarContext();
     const { fid } = useAppSelector((state) => state.auth.user.profile)
     const  {isOnboarded}  = useAppSelector((state) => state.auth.onboard)
     const dispatch = useAppDispatch()
@@ -14,6 +15,10 @@ const Layout = () => {
 
     const AppLayout = useMemo(() => {
         if (isAuthenticated) {
+
+            if (user) {
+                dispatch(setUser({ loading: false, profile: user }));
+            }
 
             if (isOnboarded) {
                 dispatch(fetchUserFeed(`${fid}`))
@@ -25,7 +30,7 @@ const Layout = () => {
         }
 
         return lazy(() => import('./AuthLayout'))
-    }, [isAuthenticated, isOnboarded, dispatch, fid])
+    }, [isAuthenticated, isOnboarded, dispatch, fid, user])
 
     return (
         <Suspense

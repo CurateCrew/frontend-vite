@@ -5,15 +5,17 @@ import Onboarding from "./views/Onboarding";
 import Layout from "./components/layouts/Layout";
 import Ready from "./views/Ready";
 import Home from "./views/Home";
+import NeynarProvider from "./NeynarProvider";
 // import Signer from "./views/Signer";
 
 
 function App() {
   
-  
   return (
 
     <BrowserRouter>
+
+    <NeynarProvider>
     
         <Routes>
             <Route path="/" element={  <SignIn/>}/>
@@ -35,9 +37,9 @@ function App() {
             <Route path="/home" element={  <Home/>}/>
         </Routes>
 
-        {/* <Routes>
-            <Route path="/signer" element={  <Signer/>}/>
-        </Routes> */}
+        </NeynarProvider>
+
+
     </BrowserRouter>
 
     

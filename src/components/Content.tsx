@@ -10,7 +10,7 @@ const Content: React.FC = () => {
   ];
 
   return (
-    <div className="flex flex-col p-4 lg:mt-16 mt-0">
+    <div className="flex flex-col p-4 lg:mt-2 mt-0">
       <div className="">
         {tabs.map((tab, index) => (
           <button

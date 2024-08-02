@@ -24,7 +24,7 @@ const ForYou: React.FC = () => {
   useEffect(() => {
     dispatch(fetchUserFeed(`${fid}`))
 
-  }, [feeds, dispatch, fid]);
+  }, [dispatch, fid]);
 
   const handleToggle = () => {
     if (openModal) {
@@ -37,25 +37,25 @@ const ForYou: React.FC = () => {
   return (
     
     <Loading loading={feeds.length < 1}>
-
-     { feeds.map((feed) => (
-        <div key={feed.hash}
-          className="border-t border-b lg:p-8 py-2 px-0 text-textLight"
-          onClick={handleToggle}
-        >
-          <RemoveCast isOpen={open} onClose={() => setOpenModal(false)} />
+      <RemoveCast isOpen={open} onClose={() => setOpenModal(false)} />
+      { feeds.map((feed) => (
+       <div key={feed.hash}
+       className="border-t border-b lg:p-8 py-2 px-0 text-textLight flex flex-col gap-2 "
+       onClick={handleToggle}
+       >
           <ProfileModal isOpen={openModal} onClose={() => setProfileModal(false)} />
+          
           <div className="flex justify-between">
             <div className="flex justify-between">
               <img
-                className="w-12 h-12 rounded-full object-cover"
+                className="w-10 h-10 rounded-full object-cover"
                 src={feed.author.pfp_url}
                 onClick={() => setProfileModal(true)}
               />
               <div className="flex lg:text-md text-sm">
-                <p className="mt-2 ml-2">{feed.author.display_name}</p>
-                <p className="mt-2 ml-2">@{feed.author.username}</p>
-                <p className="mt-2 ml-2">{timeAgo(feed.timestamp)}</p>
+                <p className="mt-2 ml-2 font-bold">{feed.author.display_name}</p>
+                <p className="mt-2 ml-2 hidden sm:block">@{feed.author.username}</p>
+                <p className="mt-2 ml-2">{timeAgo(feed.timestamp)} ago</p>
               </div>
             </div>
             <div className="flex lg:mt-0 mt-2">
@@ -63,10 +63,10 @@ const ForYou: React.FC = () => {
               <IoMdClose onClick={() => setOpenModal(true)} />
             </div>
           </div>
-          <p className="lg:ml-12 ml-12 lg:text-md text-sm">
+          <p className="lg:text-md text-sm w-full">
           {feed.text}
           </p>
-          <img className="mt-2" src={feed.embeds[0]?.url} />
+          {feed.embeds[0]?.url && <img className="mt-2" src={feed.embeds[0]?.url} />}
           <div className="flex justify-between">
             <div className="flex my-4">
               <TfiComment />
@@ -80,8 +80,7 @@ const ForYou: React.FC = () => {
             </div>
           </div>
           <div className="flex lg:text-md text-sm">
-            <p>{feed.replies.count} replies</p>
-            <p>• {feed.reactions.likes_count} likes</p>
+            <p>{feed.replies.count} replies • {feed.reactions.likes_count} likes</p>
           </div>
         </div>
       ))}

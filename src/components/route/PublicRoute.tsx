@@ -1,11 +1,11 @@
 import { Navigate, Outlet } from 'react-router-dom'
 import appConfig from '@/configs/app.config'
-import { useAppSelector } from '@/store/hook'
+import { useNeynarContext } from "@neynar/react";
 
 const { authenticatedEntryPath } = appConfig
 
 const PublicRoute = () => {
-    const isAuthenticated = useAppSelector((state) => state.auth.user)
+    const { isAuthenticated } = useNeynarContext();
 
     return isAuthenticated ? <Navigate to={authenticatedEntryPath} /> : <Outlet />
 }
