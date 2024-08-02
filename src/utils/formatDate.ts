@@ -11,11 +11,11 @@
   const months = Math.floor(days / 30);
   const years = Math.floor(days / 365);
 
-  if (seconds < 60) return `${seconds}sec`;
-  if (minutes < 60) return `${minutes}mins`;
-  if (hours < 24) return `${hours}h`;
-  if (days < 7) return `${days}d`;
-  if (weeks < 4) return `${weeks}w`;
-  if (months < 12) return `${months}m`;
+  if (seconds < 60) return `${seconds} sec`;
+  if (minutes < 60) return `${minutes} mins`;
+  if (hours < 24) return `${hours} h`;
+  if (days < 7) return `${days} d`;
+  if (weeks < 4) return `${weeks} w`;
+  if (months < 12) return `${months} m`;
   return `${years}y`;
 }

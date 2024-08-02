@@ -12,7 +12,8 @@
   "dependencies": {
     "@farcaster/auth-kit": "*",
     "@farcaster/hub-nodejs": "^0.11.21",
-    "@neynar/nodejs-sdk": "^1.38.0",
+    "@neynar/nodejs-sdk": "^1.38.2",
+    "@neynar/react": "^0.6.1",
     "@reduxjs/toolkit": "^1.9.3",
     "@tanstack/react-query": "^5.40.1",
     "acorn": "^8.12.1",

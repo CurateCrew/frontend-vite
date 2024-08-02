@@ -1,4 +1,3 @@
-import axios from 'axios'
 import ApiService from './ApiService'
 import { FollowPostRequest, PrefrencesPostRequest} from '@/store'
 
@@ -34,21 +33,12 @@ export async function apiGetSuggestedChannels<T>(fid: string) {
 }
 
 
-export async function apiCreateAndStoreSigner(data: FollowPostRequest) {
-    try {
-        const response = await axios.post("https://farcaster-curate-qauh.onrender.com/user/follow-farcaster-user", data);
-        console.log(response)
-        if (response.status === 200) {
-          return response.data
-        }
-      } catch (error) {
-        console.error("API Call failed", error);
-        return {
-            success: false,
-            error: (error as Error).message,
-            status: (error as Error).cause
-        };
-      }
+export async function apiFollowSelected<T>(data: FollowPostRequest) {
+    return ApiService.fetchData<T>({
+        url: '/user/follow-farcaster-user',
+        method: 'post',
+        data,
+    })
 }
 
 

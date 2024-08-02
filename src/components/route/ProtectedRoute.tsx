@@ -4,13 +4,14 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '@/store/hook'
 import { getUserPreferences } from '@/store'
 import { useEffect } from 'react'
+import { useNeynarContext } from "@neynar/react";
 
 const { unAuthenticatedEntryPath } = appConfig
 
 const ProtectedRoute = () => {
     const dispatch = useAppDispatch()
     const  {isOnboarded}  = useAppSelector((state) => state.auth.onboard)
-    const  {isAuthenticated}  = useAppSelector((state) => state.auth.user)
+    const { isAuthenticated } = useNeynarContext();
     const  {fid}  = useAppSelector((state) => state.auth.user.profile)
 
     useEffect(() => {
