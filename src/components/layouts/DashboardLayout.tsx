@@ -78,7 +78,7 @@ const DashboardLayout = () => {
       <div className="grid grid-cols-3 justify-between">
         <img
           className="rounded-full lg:hidden md:block"
-          src={auth.profile.pfpUrl}
+          src={auth.profile.pfp_url}
           alt={auth.profile.username}
           width={36}
           onClick={() => setOpenNav(true)}
